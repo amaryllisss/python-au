@@ -46,6 +46,7 @@ class Solution(object):
 ```python
 import unittest
 from solution import Solution
+from solution import ListNode
 
 
 class TestReverseLinkedList(unittest.TestCase):
@@ -53,33 +54,26 @@ class TestReverseLinkedList(unittest.TestCase):
         self.solution = Solution()
 
     def test_empty_list(self):
-        result = self.solution.reverseList(self.solution.create_linked_list([]))
-        expected = self.solution.create_linked_list([])
+        result = self.solution.reverseList(ListNode())
+        expected = ListNode()
         self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(expected))
 
     def test_one_value(self):
-        result = self.solution.reverseList(self.solution.create_linked_list([1]))
-        expected = self.solution.create_linked_list([1])
+        result = self.solution.reverseList(ListNode(1))
+        expected = ListNode(1)
         self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(expected))
 
     def test_two_values(self):
-        result = self.solution.reverseList(self.solution.create_linked_list([1, 2]))
-        expected = self.solution.create_linked_list([2, 1])
-        self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(expected))
+        two = ListNode(2)
+        one = ListNode(1, two)
+        two_res = ListNode(1)
+        one_res = ListNode(2, two_res)
+        result = self.solution.reverseList(one)
+        self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(one_res))
 
-    def test_odd_number_of_values(self):
-        result = self.solution.reverseList(self.solution.create_linked_list([1, 2, 3, 4, 5]))
-        expected = self.solution.create_linked_list([5, 4, 3, 2, 1])
-        self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(expected))
-
-    def test_even_number_of_values(self):
-        result = self.solution.reverseList(self.solution.create_linked_list([1, 2, 3, 4, 5, 6]))
-        expected = self.solution.create_linked_list([6, 5, 4, 3, 2, 1])
-        self.assertEqual(self.solution.get_linked_list_values(result), self.solution.get_linked_list_values(expected))
 
 if __name__ == "__main__":
-    unittest.main()
-```
+    unittest.main()```
 
 </blockquote></details>
 
