@@ -19,27 +19,39 @@ class TestMergeTwoLists(unittest.TestCase):
     def setUp(self):
         self.solution = Solution()
 
+    def get_linked_list_values(self, head):
+        result = []
+        cur = head
+        while cur is not None:
+            result.append(cur.val)
+            cur = cur.next
+        return result
+
+    def create_linked_list(self, values):
+        values.reverse()
+        if not values:
+            return None
+        prev_node = ListNode(values[0])
+        for i in range(1, len(values)):
+            next_node = ListNode(values[i], prev_node)
+            prev_node = next_node
+        return prev_node
+
     def test_merge(self):
-        list1 = [1, 2, 4, 7, 8]
-        list2 = [1, 5, 8]
-        self.assertEqual(self.solution.merge(list1, list2), [1, 1, 2, 4, 5, 7, 8, 8])
+        list1 = self.create_linked_list([1, 2, 4, 7, 8])
+        list2 = self.create_linked_list([1, 5, 8])
+        result = self.solution.mergeTwoLists(list1, list2)
+        self.assertEqual(self.get_linked_list_values(result), [1, 1, 2, 4, 5, 7, 8, 8])
 
     def test_empty_list(self):
-        self.assertEqual(self.solution.get_linked_list_values(self.solution.mergeTwoLists(None, None)), [])
+        self.assertEqual(self.get_linked_list_values(self.solution.mergeTwoLists(None, None)), [])
 
     def test_one_value(self):
-        one = ListNode(1)
-        self.assertEqual(self.solution.get_linked_list_values(self.solution.mergeTwoLists(one, None)), [1])
+        list1 = self.create_linked_list([1])
+        list2 = self.create_linked_list([])
+        result = self.solution.mergeTwoLists(list1, list2)
+        self.assertEqual(self.get_linked_list_values(result), [1])
 
-    def test_sortList(self):
-        three = ListNode(6)
-        two = ListNode(5, three)
-        one = ListNode(3, two)
-
-        five = ListNode(5)
-        four = ListNode(2, five)
-
-        self.assertEqual(self.solution.get_linked_list_values(self.solution.mergeTwoLists(one, four)), [2, 3, 5, 5, 6])
 
 if __name__ == "__main__":
     unittest.main()
@@ -62,50 +74,32 @@ class Solution(object):
         :type list2: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
-        first_list = self.get_linked_list_values(list1)
-        second_list = self.get_linked_list_values(list2)
-        vals = self.merge(first_list, second_list)
-        return self.create_linked_list(vals)
 
+        result = ListNode()
+        head = result
 
-    def get_linked_list_values(self, head):
-        result = []
-        cur = head
-        while cur != None:
-            result.append(cur.val)
-            cur = cur.next
-        return result
-
-    def create_linked_list(self, values):
-        if values == []:
-            return None
-        values.reverse()
-        prev_node = ListNode(values[0])
-        for i in range(1, len(values)):
-            next_node = ListNode(values[i], prev_node)
-            prev_node = next_node
-        return prev_node
-
-    def merge(self, list1, list2):
-        first, second = 0, 0
-        result = []
-
-        while first < len(list1) and second < len(list2):
-            if list1[first] < list2[second]:
-                result.append(list1[first])
-                first += 1
+        while list1 is not None and list2 is not None:
+            result.next = ListNode()
+            result = result.next
+            if list1.val < list2.val:
+                result.val = list1.val
+                list1 = list1.next
             else:
-                result.append(list2[second])
-                second += 1
+                result.val = list2.val
+                list2 = list2.next
 
-        while first < len(list1):
-            result.append(list1[first])
-            first += 1
+        while list1 is not None:
+            result.next = ListNode()
+            result = result.next
+            result.val = list1.val
+            list1 = list1.next
 
-        while second < len(list2):
-            result.append(list2[second])
-            second += 1
+        while list2 is not None:
+            result.next = ListNode()
+            result = result.next
+            result.val = list2.val
+            list2 = list2.next
 
-        return result
+        return head.next
 ```
 
