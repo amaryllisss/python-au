@@ -4,7 +4,7 @@
 ](#reverse-linked-list
 )
 
-[Middle of the Linked List
++ [Middle of the Linked List
 ](#middle-of-the-linked-list
 )
 
