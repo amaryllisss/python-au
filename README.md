@@ -3,6 +3,7 @@
 - [GUI application](#GUI)
 - [Monte Carlo method](#Monte-Carlo)
 - [Relations count](#Relations-count)
+- [Alignment Web Application](#Web-Application)
 
 ## GUI
   The application allows you to create notes and saves them to files "date.txt" (you can choose it using a calendar in the app).
@@ -18,3 +19,6 @@
   Without numba it took about 21 sec to count relations between 4-element set to 5-element set.
   
   Using numba this calculation took only 0.76 sec.
+  
+## Web Application
+  This application allows you to align 2 sequences and count the edit distance. 
