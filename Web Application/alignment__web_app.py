@@ -22,7 +22,6 @@ def get_seqs():
             sequence1 = ""
         if sequence2 is None:
             sequence2 = ""
-        print(sequence1, sequence2)
         result = needleman_wunsch(sequence1, sequence2)
     return flask.render_template(
         'get_seqs.html',
