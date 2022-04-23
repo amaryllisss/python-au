@@ -1,6 +1,6 @@
 # Projects
 
-- [GUI application](#GUI)
+- [Notes - GUI application](#GUI)
 - [Monte Carlo method](#Monte-Carlo)
 - [Relations count](#Relations-count)
 - [Alignment Web Application](#Web-Application)
