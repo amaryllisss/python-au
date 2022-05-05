@@ -1,10 +1,17 @@
 import matplotlib.pyplot as plt
 import pygad
 import pandas
-from statistics import get_p_value
+from scipy import stats
+
+
+def get_p_value(data):
+    return stats.kstest(data, 'norm', (data.mean(), data.std()), N=len(data))[1]
 
 
 last_fitness = pandas.read_csv("input_data.csv")
+last_fitness.plot.kde()
+plt.savefig('input_data.jpg')
+
 num_generations = 50
 num_parents_mating = 3
 sol_per_pop = 10
@@ -24,6 +31,7 @@ def on_generation(ga_instance):
     print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
     print("Index of the best solution : {solution_idx}".format(solution_idx=solution_idx))
     print()
+
     sol_df = pandas.DataFrame(solution)
     sol_df.to_csv('best_solution.csv')
     sol_df.plot.kde()
